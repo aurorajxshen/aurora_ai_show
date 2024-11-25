@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parent and Child with Video</title>
+  <style>
+    /* Styling for the parent (dad) div */
+    #dad {
+      width: 100%;
+      padding: 20px;
+      background-color: lightblue;
+      text-align: center;
+      border: 2px solid blue;
+      margin-bottom: 20px;
+    }
+
+    /* Styling for the child div */
+    #child {
+      width: 50%;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: lightgreen;
+      text-align: center;
+      border: 2px solid green;
+    }
+
+    /* Styling for the iframe */
+    iframe {
+      width: 80%;
+      height: 400px;
+      margin: 20px auto;
+      display: block;
+      border: 2px solid gray;
+    }
+  </style>
+</head>
+<body>
+  <!-- Parent (Dad) div -->
+  <div id="dad">
+    <h1>Parent (Dad)</h1>
+    <p>This is the parent container.</p>
+
+    <!-- Child div -->
+    <div id="child">
+      <h2>Child</h2>
+      <p>This is the child inside the parent.</p>
+    </div>
+  </div>
+
+  <!-- Iframe for embedding a video -->
+  <iframe 
+    src="video.mp4" 
+    title="Embedded Video" 
+    allow="autoplay; fullscreen">
+      Your browser does not support iframes.
+  </iframe>
+  
+  <p style="text-align:center;">The video above is embedded from the repository.</p>
+</body>
+</html>
