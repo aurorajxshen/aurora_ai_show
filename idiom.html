@@ -3,59 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parent and Child with Video</title>
+  <title>Interactive Webpage</title>
   <style>
-    /* Styling for the parent (dad) div */
-    #dad {
+    /* Global styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(120deg, #000000, #1a1a1a);
+      color: white;
+    }
+
+    /* Floating Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 20px;
-      background-color: lightblue;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid #333;
+      z-index: 1000;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+      margin: 0;
+    }
+
+    header nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1em;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover {
+      color: #00bcd4;
+    }
+
+    /* Section Styles */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      border: 2px solid blue;
+      padding: 20px;
+    }
+
+    /* Intro Section */
+    #intro {
+      background: url('https://source.unsplash.com/1600x900/?abstract,dark') no-repeat center center/cover;
+    }
+
+    #intro h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    #intro p {
+      font-size: 1.5em;
+      max-width: 800px;
+      text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Video Section */
+    #video-section {
+      background: #121212;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #video-section h2 {
+      font-size: 2.5em;
       margin-bottom: 20px;
     }
 
-    /* Styling for the child div */
-    #child {
-      width: 50%;
-      margin: 0 auto;
-      padding: 10px;
-      background-color: lightgreen;
-      text-align: center;
-      border: 2px solid green;
-    }
-
-    /* Styling for the iframe */
     iframe {
       width: 80%;
-      height: 400px;
-      margin: 20px auto;
-      display: block;
-      border: 2px solid gray;
+      height: 450px;
+      border: 3px solid #333;
+      border-radius: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #999;
+    }
+
+    footer a {
+      color: #00bcd4;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <!-- Parent (Dad) div -->
-  <div id="dad">
-    <h1>Parent (Dad)</h1>
-    <p>This is the parent container.</p>
 
-    <!-- Child div -->
-    <div id="child">
-      <h2>Child</h2>
-      <p>This is the child inside the parent.</p>
-    </div>
-  </div>
+  <!-- Floating Header -->
+  <header>
+    <h1>Interactive Art</h1>
+    <nav>
+      <a href="#intro">About</a>
+      <a href="#video-section">Video</a>
+      <a href="#footer">Contact</a>
+    </nav>
+  </header>
 
-  <!-- Iframe for embedding a video -->
-  <iframe 
-    src="a.mp4" 
-    title="Embedded Video" 
-    allow="autoplay; fullscreen">
-      Your browser does not support iframes.
-  </iframe>
-  
-  <p style="text-align:center;">The video above is embedded from the repository.</p>
+  <!-- Intro Section -->
+  <section id="intro">
+    <h2>Welcome to Interactive Art</h2>
+    <p>
+      Explore the boundaries of art, technology, and human memory. Scroll down to view more.
+    </p>
+  </section>
+
+  <!-- Video Section -->
+  <section id="video-section">
+    <h2>Experience the Vision</h2>
+    <iframe 
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+      title="Embedded Video" 
+      allow="autoplay; fullscreen">
+    </iframe>
+    <p>Watch the video to learn more about the creative process behind the project.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <p>Created by Refik Anadol-inspired Designs &copy; 2024</p>
+    <p>
+      <a href="https://refikanadol.com" target="_blank">Visit Refik Anadol's Works</a>
+    </p>
+  </footer>
+
 </body>
 </html>
