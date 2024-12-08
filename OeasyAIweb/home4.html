@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyrics Art Portfolio</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Introduction Page */
+    .intro {
+      text-align: center;
+      padding: 100px 0;
+      height: 500px;
+    }
+
+    .intro h1 {
+      font-size: 4rem;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+
+    .intro p {
+      font-size: 1.5rem;
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+
+    .intro button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background-color: hsla(199, 43%, 68%, 0.933);
+      border: none;
+      border-radius: 5px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    /* Album Cover */
+    .album-cover {
+      background: url('album-cover.jpg') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 3rem;
+      opacity: 0;
+      transform: scale(1.2);
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .album-description {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      color: white;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0 10%;
+      padding: 20px 0; /* Reduced padding to bring it closer */
+    }
+
+    .image-block {
+      width: 150px;
+      height: 150px;
+      margin: 20px;
+      opacity: 0;
+      transform: rotateY(180deg); /* Start with rotation */
+    }
+
+    .image-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Extra section to add space for scrolling */
+    .extra-space {
+      height: 1000px; /* This adds space for the scroll effect */
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Introduction Page -->
+  <div class="intro">
+    <h1>Lyrics to Art</h1>
+    <p>Explore how lyrics come to life through generated art</p>
+    <a href="./ly4.html" id="enterBtn" style="text-decoration: none;"></a>
+        <button id="enterBtn">Enter the Gallery</button>
+  </div>
+
+  <!-- Album Cover -->
+  <div class="album-cover" id="albumCover">
+    <h1>The Albums</h1>
+    <p class="album-description">
+        <br>This website is initially created as a portfolio to showcase AI-generated images based on song lyrics.</br>
+        <br>The images are generated using AI tools and reflect my musical journey.</br>
+         <br>It's a creative experiment combining art with music, </br>
+         <br>logging the songs I listen to while exploring artistic expressions.</br>
+        </p>
+  </div>
+
+  <!-- Image Gallery -->
+  <div class="gallery">
+    <div class="image-block" id="image1">
+      <img src="images/cover_brat.JPG" alt="brat">
+    </div>
+    <div class="image-block" id="image2">
+      <img src="images/cover_TTPD.JPG" alt="TTPD">
+    </div>
+    <div class="image-block" id="image3">
+      <img src="images/cover_speaknow.JPG" alt="Speak now">
+    </div>
+    <div class="image-block" id="image4">
+      <img src="images/cover_red.JPG" alt="red">
+    </div>
+    <div class="image-block" id="image5">
+      <img src="images/cover_1989.JPG" alt="1989">
+    </div>
+  </div>
+
+  <!-- Extra space to add scrolling area -->
+  <div class="extra-space"></div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animating intro section
+    gsap.to('.intro h1', { opacity: 1, y: 0, duration: 1, delay: 0.5 });
+    gsap.to('.intro p', { opacity: 1, y: 0, duration: 1, delay: 1 });
+    gsap.to('.intro button', { opacity: 1, y: 0, duration: 1, delay: 1.5 });
+
+    // ScrollTrigger for album cover
+    gsap.to('#albumCover', {
+      opacity: 1, 
+      scale: 1, 
+      scrollTrigger: {
+        trigger: '.album-cover',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: true,
+      }
+    });
+
+    // Fade-in animation for album description
+    gsap.to('.album-description', {
+      opacity: 40,
+      y: 0,
+      duration: 1,
+      delay: 1.8, // Ensure it appears after album title
+    });
+
+    // ScrollTrigger for image blocks with rotation and diagonal movement
+    document.querySelectorAll('.image-block').forEach((block, index) => {
+      gsap.fromTo(block, {
+        opacity: 0,
+        rotationY: 180, // Start with a 180 degree rotation
+        y: 100, // Start from below
+        x: (index % 2 === 0 ? -150 : 150), // Start from left or right
+        scale: 0.5, // Start smaller
+      }, {
+        opacity: 1,
+        rotationY: 0, // End with no rotation
+        scale: 1,
+        x: 0, // Final horizontal position (aligned in a line)
+        y: 0, // Final vertical position (aligned)
+        scrollTrigger: {
+          trigger: block,
+          start: "top 80%",
+          end: "top 20%",
+          toggleActions: "play none none none",
+          markers: false,
+          scrub: true,
+        },
+      });
+    });
+  </script>
+
+</body>
+</html>

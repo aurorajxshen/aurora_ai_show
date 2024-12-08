@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger Rotation Effect</title>
+  <!-- Link to GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+  <style>
+    /* Basic Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Styling for Page 1 */
+    .page {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ccc;
+      color: white;
+      font-size: 2rem;
+    }
+
+    /* Styling for Page 3 - Cross Arrangement Layout */
+    .lyrics-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 50px;
+      background-color: #222;
+      color: white;
+    }
+
+    .image-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      width: 70%;
+      overflow-y: auto;
+    }
+
+    .image-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+      position: relative;
+    }
+
+    .image-item:nth-child(even) {
+      flex-direction: row-reverse; /* Switch the layout for alternating image and text */
+    }
+
+    .image-item img {
+      width: 45%;
+      height: auto;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .image-item img:hover {
+      transform: scale(1.05); /* Zoom-in effect on hover */
+    }
+
+    .lyrics-text {
+      width: 45%;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    /* For the list of lyrics to be spread out on scroll */
+    .lyrics-container ul {
+      list-style-type: none;
+      padding: 0;
+      opacity: 0; /* Initially hidden */
+      transform: translateY(50px); /* Start from below */
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .lyrics-container ul li {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    /* ScrollTrigger for lyrics reveal animation */
+    .lyrics-container ul.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Intro Page -->
+  <div class="page" style="background-color: #4CAF50;">
+    <p>brat</p>
+  </div>
+
+  <!-- Page 2: Gallery Section with Images -->
+  <div class="gallery">
+    <div class="image-block">
+      <img src="https://img.recraft.ai/mUkP-0S6jZPTy-L3EHA8DesUmKGabwpqcAs8j93Z0uU/rs:fit:1024:1024:0/q:95/g:no/plain/abs://prod/images/3dc908da-ac73-4e00-8c87-cd2845923cf9@jpg" alt="Image 1">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+2" alt="Image 2">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+3" alt="Image 3">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+4" alt="Image 4">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+5" alt="Image 5">
+    </div>
+  </div>
+
+  <!-- Page 3: Cross Arrangement Layout with Lyrics -->
+  <div class="lyrics-section">
+    <!-- Scrollable List of Images with Lyrics -->
+    <div class="image-list">
+      <div class="image-item" data-audio="audio1.mp3">
+        <img src="https://via.placeholder.com/600x400?text=Generated+Image+1" alt="Generated Image 1">
+        <div class="lyrics-text">
+          <ul>
+            <li>Track 1 - Lyrics 1</li>
+            <li>Track 2 - Lyrics 2</li>
+            <li>Track 3 - Lyrics 3</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio2.mp3">
+        <img src="https://via.placeholder.com/600x400?text=Generated+Image+2" alt="Generated Image 2">
+        <div class="lyrics-text">
+          <ul>
+            <li>Track 1 - Lyrics 1</li>
+            <li>Track 2 - Lyrics 2</li>
+            <li>Track 3 - Lyrics 3</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio3.mp3">
+        <img src="https://via.placeholder.com/600x400?text=Generated+Image+3" alt="Generated Image 3">
+        <div class="lyrics-text">
+          <ul>
+            <li>Track 1 - Lyrics 1</li>
+            <li>Track 2 - Lyrics 2</li>
+            <li>Track 3 - Lyrics 3</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio4.mp3">
+        <img src="https://via.placeholder.com/600x400?text=Generated+Image+4" alt="Generated Image 4">
+        <div class="lyrics-text">
+          <ul>
+            <li>Track 1 - Lyrics 1</li>
+            <li>Track 2 - Lyrics 2</li>
+            <li>Track 3 - Lyrics 3</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio5.mp3">
+        <img src="https://via.placeholder.com/600x400?text=Generated+Image+5" alt="Generated Image 5">
+        <div class="lyrics-text">
+          <ul>
+            <li>Track 1 - Lyrics 1</li>
+            <li>Track 2 - Lyrics 2</li>
+            <li>Track 3 - Lyrics 3</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Select all image blocks in the gallery
+    const imageBlocks = document.querySelectorAll('.image-block');
+
+    // Iterate over each image block and create a ScrollTrigger animation
+    imageBlocks.forEach((block) => {
+      gsap.fromTo(block, {
+        opacity: 0,
+        rotation: -180, // Start the block rotated
+        y: 100, // Start from 100px below
+      }, {
+        opacity: 1,
+        rotation: 0, // End at 0 rotation (normal position)
+        y: 0, // Move to normal position
+        scrollTrigger: {
+          trigger: block,
+          start: "top 80%", // Trigger when 80% of the block is in the viewport
+          end: "top 20%",
+          toggleActions: "play none none none", // Action to play when entering
+          markers: false, // Set to `true` to see the trigger markers for debugging
+          scrub: true, // Optional: smooth scrubbing
+        },
+      });
+    });
+
+    // ScrollTrigger for lyrics reveal animation
+    gsap.fromTo('.lyrics-container ul', {
+      opacity: 0,
+      y: 50,
+    }, {
+      opacity: 1,
+      y: 0,
+      scrollTrigger: {
+        trigger: '.lyrics-container',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: true,
+        markers: false,
+        onEnter: () => document.querySelector('.lyrics-container ul').classList.add('reveal'),
+      }
+    });
+
+    // Hover effect to play audio
+    const imageItems = document.querySelectorAll('.image-item');
+
+    imageItems.forEach((item) => {
+      const audio = new Audio(item.get

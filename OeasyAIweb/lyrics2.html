@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger Rotation Effect</title>
+  <!-- Link to GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+  <style>
+    /* Basic Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Styling for Page 1 */
+    .page {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ccc;
+      color: white;
+      font-size: 2rem;
+    }
+
+    /* Styling for Gallery Section */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 50px;
+      max-width: 90%;
+    }
+
+    .image-block {
+      width: 250px;
+      height: 250px;
+      overflow: hidden;
+      opacity: 0; /* Initially hidden */
+    }
+
+    .image-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease; /* Smooth image transform */
+    }
+
+    /* Styling for Page 3 - Image Grid Layout */
+    .image-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 50px;
+      justify-content: center;
+      background-color: #222;
+    }
+
+    .grid-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    /* Hover effect for grid items */
+    .grid-item:hover {
+      transform: scale(1.05);
+    }
+
+    .grid-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Overlay for text when hovering */
+    .grid-item .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      color: white;
+      font-size: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .grid-item:hover .overlay {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Intro Page -->
+  <div class="page" style="background-color: #4CAF50;">
+    <p>brat</p>
+  </div>
+
+  <!-- Page 2: Gallery Section with Images -->
+  <div class="gallery">
+    <div class="image-block">
+      <img src="https://img.recraft.ai/mUkP-0S6jZPTy-L3EHA8DesUmKGabwpqcAs8j93Z0uU/rs:fit:1024:1024:0/q:95/g:no/plain/abs://prod/images/3dc908da-ac73-4e00-8c87-cd2845923cf9@jpg" alt="Image 1">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+2" alt="Image 2">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+3" alt="Image 3">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+4" alt="Image 4">
+    </div>
+    <div class="image-block">
+      <img src="https://via.placeholder.com/250x250?text=Image+5" alt="Image 5">
+    </div>
+  </div>
+
+  <!-- Page 3: Image Grid Section -->
+  <div class="image-grid">
+    <div class="grid-item">
+      <img src="https://via.placeholder.com/300x300?text=Image+1" alt="Generated Image 1">
+      <div class="overlay">Track 1</div>
+    </div>
+    <div class="grid-item">
+      <img src="https://via.placeholder.com/300x300?text=Image+2" alt="Generated Image 2">
+      <div class="overlay">Track 2</div>
+    </div>
+    <div class="grid-item">
+      <img src="https://via.placeholder.com/300x300?text=Image+3" alt="Generated Image 3">
+      <div class="overlay">Track 3</div>
+    </div>
+    <div class="grid-item">
+      <img src="https://via.placeholder.com/300x300?text=Image+4" alt="Generated Image 4">
+      <div class="overlay">Track 4</div>
+    </div>
+    <div class="grid-item">
+      <img src="https://via.placeholder.com/300x300?text=Image+5" alt="Generated Image 5">
+      <div class="overlay">Track 5</div>
+    </div>
+  </div>
+
+  <script>
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Select all image blocks
+    const imageBlocks = document.querySelectorAll('.image-block');
+
+    // Iterate over each image block and create a ScrollTrigger animation
+    imageBlocks.forEach((block, index) => {
+      gsap.fromTo(block, {
+        opacity: 0,
+        rotation: -180, // Start the block rotated
+        y: 100, // Start from 100px below
+      }, {
+        opacity: 1,
+        rotation: 0, // End at 0 rotation (normal position)
+        y: 0, // Move to normal position
+        scrollTrigger: {
+          trigger: block,
+          start: "top 80%", // Trigger when 80% of the block is in the viewport
+          end: "top 20%",
+          toggleActions: "play none none none", // Action to play when entering
+          markers: false, // Set to `true` to see the trigger markers for debugging
+          scrub: true, // Optional: smooth scrubbing
+        },
+      });
+    });
+
+    // Image Grid: ScrollTrigger effect for the grid
+    gsap.fromTo('.image-grid', {
+      opacity: 0,
+      y: 100,
+    }, {
+      opacity: 1,
+      y: 0,
+      scrollTrigger: {
+        trigger: '.image-grid',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: true,
+        markers: false,
+      }
+    });
+    
+  </script>
+</body>
+</html>

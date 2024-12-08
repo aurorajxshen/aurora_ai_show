@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger Rotation Effect</title>
+  <!-- Link to GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+  <style>
+    /* Basic Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Styling for Page 1 */
+    .page {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ccc;
+      color: white;
+      font-size: 2rem;
+    }
+
+   /* Styling for Page3 */
+   .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 50px;
+      max-width: 90%;
+    }
+
+    .image-block {
+      width: 250px;
+      height: 250px;
+      overflow: hidden;
+      opacity: 0; /* Initially hidden */
+    }
+
+    .image-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease; /* Smooth image transform */
+      border-radius: 10px; /* Optional: keep rounded corners */
+    }
+
+    /* Styling for Page 3 - Cross Arrangement Layout */
+    .lyrics-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 50px;
+      background-color: #222;
+      color: white;
+    }
+
+    .image-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      width: 70%;
+      overflow-y: auto;
+    }
+
+    .image-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+      position: relative;
+    }
+
+    .image-item:nth-child(even) {
+      flex-direction: row-reverse; /* Switch the layout for alternating image and text */
+    }
+
+    .image-item img {
+      width: 45%;
+      height: auto;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .image-item img:hover {
+      transform: scale(1.05); /* Zoom-in effect on hover */
+    }
+
+    .lyrics-text {
+      width: 45%;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    /* For the list of lyrics to be spread out on scroll */
+    .lyrics-container ul {
+      list-style-type: none;
+      padding: 0;
+      opacity: 0; /* Initially hidden */
+      transform: translateY(50px); /* Start from below */
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Space out the items vertically */
+    }
+
+    .lyrics-container ul li {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    /* ScrollTrigger for lyrics reveal animation */
+    .lyrics-container ul.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .spotify-embed {
+      width: 40%; /* Set the width of the iframe */
+      max-width: 300px; /* Optional: Limit the maximum width */
+      height: 100px; /* Set a fixed height or use percentage-based */
+      border-radius: 12px;
+  }
+
+</style>
+
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Intro Page -->
+  <div class="page" style="background-color: #4CAF50;">
+    <p>brat</p>
+  </div>
+
+  <!-- Page 2: Gallery Section with Images -->
+  <div class="gallery">
+    <div class="image-block">
+      <img src="images/brat_360.jpg" alt="Image 1">
+    </div>
+    <div class="image-block">
+      <img src="images/brat_soI.jpg" alt="Image 2">
+    </div>
+    <div class="image-block">
+      <img src="images/brat_apple.jpg" alt="Image 3">
+    </div>
+    <div class="image-block">
+      <img src="images/brat_G.jpg" alt="Image 4">
+    </div>
+    <div class="image-block">
+      <img src="images/brat_sym.jpg" alt="Image 5">
+    </div>
+  </div>
+
+
+  <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/4w2GLmK2wnioVnb5CPQeex?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <!--网易云 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=1&id=198547863&auto=1&height=430"></iframe> -->
+
+  <!-- Page 3: Cross Arrangement Layout with Lyrics -->
+  <div class="lyrics-section">
+    <!-- Scrollable List of Images with Lyrics -->
+    <div class="image-list">
+      <div class="image-item" data-audio="audio1.mp3">
+        <img src="images/brat1.png" alt="Generated Image 1">
+        <div class="lyrics-text">
+          <ul>
+            <p><i>when you're in the mirror do you like what you see</i></p>
+            <p><i>when you're in the mirror you're just lookin' at me</i></p>
+            <li>Track 1 - 360</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio2.mp3">
+        <img src="images/brat2.png" alt="Generated Image 2">
+        <div class="lyrics-text">
+          <ul>
+            <p>And I know you always said it's okay to cry</p>
+            <p><i>so I know I can cry I can cry</i></p->
+            <p><i> So I cry</i></p>
+            <li>Track 9 - So I</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio3.mp3">
+        <img src="images/brat3.png" alt="Generated Image 3">
+        <div class="lyrics-text">
+          <ul>
+            <p><i>I wanna throw the apple into the sky</i></p>
+            <p><i>feels like you never understand me so I just want to drive</i></p>
+            <p><i>to the airport</i></p>
+            <li>Track 11 - Apple</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio4.mp3">
+        <img src="images/brat4.png" alt="Generated Image 4">
+        <div class="lyrics-text">
+          <ul>
+            <p><i>Girl,</i></p>
+            <p><i>It's so confusing sometimes to be a girl</i></p>
+            <p><i>How do you feel being a girl?</i></p>
+            <li>Track 10 - Girl, so confusing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-item" data-audio="audio5.mp3">
+        <img src="images/brat5.png" alt="Generated Image 5">
+        <div class="lyrics-text">
+          <ul>
+            <p><i>Coz I couldn't even be her if I tried</i></p>
+            <p><i>I'm opposite, I'm on the other side</i></p>
+            <p><i>All this sympathy is just a knife</i></p>
+            <p><i>why I can't even grit my teeth and lie</i></p>
+            <p><i>I feel all these feelings I can't control</i></p>
+            <li>Track 3 - Sympathy is a knife</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footnote Section -->
+<footer style="width: 100%; padding: 20px; text-align: center; background-color: #333; color: #fff; font-size: 1rem;">
+    <p>Images generated using Recraft by Aurora Jiaxin Shen.</p>
+</footer>
+
+
+  <script>
+    // Register GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Select all image blocks in the gallery
+    const imageBlocks = document.querySelectorAll('.image-block');
+
+    // Iterate over each image block and create a ScrollTrigger animation
+    imageBlocks.forEach((block) => {
+      gsap.fromTo(block, {
+        opacity: 0,
+        rotation: -180, // Start the block rotated
+        y: 100, // Start from 100px below
+      }, {
+        opacity: 1,
+        rotation: 0, // End at 0 rotation (normal position)
+        y: 0, // Move to normal position
+        scrollTrigger: {
+          trigger: block,
+          start: "top 80%", // Trigger when 80% of the block is in the viewport
+          end: "top 20%",
+          toggleActions: "play none none none", // Action to play when entering
+          markers: false, // Set to `true` to see the trigger markers for debugging
+          scrub: true, // Optional: smooth scrubbing
+        },
+      });
+    });
+
+    // ScrollTrigger for lyrics-text animation on page 3
+    gsap.utils.toArray('.lyrics-text').forEach((lyricsText) => {
+      gsap.fromTo(lyricsText, {
+        opacity: 0,
+        y: 30,  // Start slightly below
+        x: -30, // Start slightly to the left
+      }, {
+        opacity: 1,
+        y: 0,  // Move to normal position
+        x: 0,  // Move to normal horizontal position
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: lyricsText,
+          start: "top 80%", // Start the animation when the text is 80% in the viewport
+          end: "top 40%",   // End when it's at 40%
+          scrub: true, // Optional: smooth scrubbing as you scroll
+          toggleActions: "play none none none",
+          markers: false, // Optional: set to true to debug and see trigger markers
+        },
+      });
+    });
+
+    // Hover effect to play audio
+    const imageItems = document.querySelectorAll('.image-item');
+
+    imageItems.forEach((item) => {
+      const audio = new Audio(item.dataset.audio);  // Load the audio file from data attribute
+
+// Add event listeners for the hover effect
+item.querySelector('img').addEventListener('mouseenter', () => {
+  audio.play();  // Play the audio when hovering over the image
+});
+
+item.querySelector('img').addEventListener('mouseleave', () => {
+  audio.pause();  // Pause the audio when the hover ends
+  audio.currentTime = 0;  // Reset the audio to the start
+});
+});
+</script>
+
+</body>
+</html>
+
